@@ -84,3 +84,9 @@ Show your support by ⭐ the project. Pull requests are always welcome.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/dunky11/react-saas-template/blob/master/LICENSE) file for details.
+
+
+### npm源切换
+1. npm install nrm
+2. nrm ls 列出可使用的源
+3. nrm user 源名进行切换
