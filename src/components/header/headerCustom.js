@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { 
+import {
   Layout,
   Row,
   Col,
@@ -11,8 +11,8 @@ import {
 } from 'antd'
 import Cookies from 'js-cookie'
 import { connect } from 'react-redux'
-import Login from '../../containers/login/login'
-import Register from '../../containers/register/register'
+import Login from '../../pages/login/login'
+import Register from '../../pages/register/register'
 import Navigate from '../menu/menu'
 import { logout } from '../../redux/user.redux'
 import { menus } from '../../constants/menus'
@@ -56,17 +56,17 @@ class HeaderCustom extends Component {
       register: false
     })
   }
-  menuClick({key}) {
+  menuClick({ key }) {
     this.setState({
       nav: key
     })
-    
+
   }
   render() {
     const menu = (
       <Menu>
         <Menu.Item>
-          <span 
+          <span
             className="user-logout"
             onClick={() => {
               Cookies.remove("token")
@@ -84,24 +84,24 @@ class HeaderCustom extends Component {
       <Navigate
         menus={menus}
         onClick={this.menuClick}
-        style={{width: 90, borderRadius: '5%'}}
+        style={{ width: 90, borderRadius: '5%' }}
       />
     )
     return (
       <Header className="header-container">
         <Row>
-          <Col 
-            lg={{span: 4}}
-            md={{span: 4}}
-            xs={{span: 0}}
+          <Col
+            lg={{ span: 4 }}
+            md={{ span: 4 }}
+            xs={{ span: 0 }}
           >
             <div className="logo">
             </div>
           </Col>
-          <Col 
-            lg={{span: 14}}
-            md={{span: 14}}
-            xs={{span: 0}}
+          <Col
+            lg={{ span: 14 }}
+            md={{ span: 14 }}
+            xs={{ span: 0 }}
           >
             <Navigate
               menus={menus}
@@ -109,40 +109,40 @@ class HeaderCustom extends Component {
             />
           </Col>
           <Col
-            lg={{span: 0}}
-            md={{span: 0}}
-            xs={{span: 10}}
+            lg={{ span: 0 }}
+            md={{ span: 0 }}
+            xs={{ span: 10 }}
             className="drop-down"
           >
-             <Dropdown overlay={navigator} trigger={['click']}>
-                <div>
-                  <Button type="primary" ghost style={{border: 'none'}}>
-                    {this.state.nav}<Icon type="caret-down" />
-                  </Button>
-                </div>
-             </Dropdown>
+            <Dropdown overlay={navigator} trigger={['click']}>
+              <div>
+                <Button type="primary" ghost style={{ border: 'none' }}>
+                  {this.state.nav}<Icon type="caret-down" />
+                </Button>
+              </div>
+            </Dropdown>
           </Col>
-          <Col 
-            lg={{span: 6}}
-            md={{span: 6}}
-            xs={{span: 14}}
+          <Col
+            lg={{ span: 6 }}
+            md={{ span: 6 }}
+            xs={{ span: 14 }}
           >
-            <div 
+            <div
               className="nav-auth"
-              style={{display: Cookies.get("token") ? 'none' : 'block'}}
+              style={{ display: Cookies.get("token") ? 'none' : 'block' }}
             >
-              <Button 
-                ghost 
-                type="primary" 
-                size="small" 
-                style={{marginRight: 20}}
+              <Button
+                ghost
+                type="primary"
+                size="small"
+                style={{ marginRight: 20 }}
                 onClick={this.showLoginModal}
               >
                 登录
               </Button>
-              <Button 
-                ghost 
-                type="danger" 
+              <Button
+                ghost
+                type="danger"
                 size="small"
                 onClick={this.showRegisterModal}
               >
@@ -150,9 +150,9 @@ class HeaderCustom extends Component {
               </Button>
             </div>
 
-            <div 
+            <div
               className="user-info"
-              style={{display: Cookies.get("token") ? 'flex' : 'none'}}
+              style={{ display: Cookies.get("token") ? 'flex' : 'none' }}
             >
               <Dropdown
                 placement="bottomCenter"
@@ -160,9 +160,9 @@ class HeaderCustom extends Component {
               >
                 <Avatar
                   className="user-avatar"
-                  shape="square" 
+                  shape="square"
                   size="large"
-                  style={{backgroundColor: 'rgb(255, 191, 0)'}}
+                  style={{ backgroundColor: 'rgb(255, 191, 0)' }}
                 >
                   {Cookies.get("username") ? Cookies.get("username")[0] : null}
                 </Avatar>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { timetrans, color } from '../../utils/utils'
-import { 
+import {
   List,
   Icon,
   Tag,
@@ -67,12 +67,13 @@ class BlogList extends Component {
         this.props.getBlogList(params)
       })
     }
-    const IconText = ({ type, text }) => (
-      <span>
+    const IconText = ({ type, text }) => {
+      return (<span>
         <Icon type={type} style={{ marginRight: 8 }} />
         {text}
       </span>
-    )
+      )
+    }
     return (
       <div>
         <Row>
@@ -87,46 +88,48 @@ class BlogList extends Component {
               size="large"
               pagination={pagination}
               dataSource={this.props.content}
-              renderItem={item => (
-                <List.Item
-                  key={item.title}
-                  actions={
-                  [ 
-                    <IconText type="message" text={item.commentSize} />,
-                    <IconText type="tags-o" text={
-                      item.tags.split(',').map(v => (
-                        <Tag
-                          key={item.id + Math.random()}
-                          color={color[Math.floor(Math.random()*color.length)]}
-                          onClick={()=>this.props.history.push(`/app/tags/${v}`)}
-                        >
-                          {v}
-                        </Tag>
-                    ))
-                    } />,
-                    item.catalog ?
-                    <IconText type="folder" text={
-                      <Tag
-                        color="orange"
-                        key={item.catalog.id}
-                        onClick={()=>this.props.history.push(`/app/catalog/${item.catalog.id}`)}
-                      >
-                        {item.catalog.name}
-                      </Tag>
-                    }/> : null
-                  ]}
-                  extra={[
-                    timetrans(item.created_at)
-                  ]}
-                >
-                  <List.Item.Meta
-                    className="list-item"
-                    title={item.title}
-                    description={item.summary}
-                    onClick={()=>this.props.history.push(`/app/blog/desc/${item.id}`)}
-                  />
-                </List.Item>
-              )}
+              renderItem={item => {
+                return (
+                  <List.Item
+                    key={item.title}
+                    actions={
+                      [
+                        <IconText type="message" text={item.commentSize} />,
+                        <IconText type="tags-o" text={
+                          item.tags.split(',').map(v => (
+                            <Tag
+                              key={item.id + Math.random()}
+                              color={color[Math.floor(Math.random() * color.length)]}
+                              onClick={() => this.props.history.push(`/app/tags/${v}`)}
+                            >
+                              {v}
+                            </Tag>
+                          ))
+                        } />,
+                        item.catalog ?
+                          <IconText type="folder" text={
+                            <Tag
+                              color="orange"
+                              key={item.catalog.id}
+                              onClick={() => this.props.history.push(`/app/catalog/${item.catalog.id}`)}
+                            >
+                              {item.catalog.name}
+                            </Tag>
+                          } /> : null
+                      ]}
+                    extra={[
+                      timetrans(item.created_at)
+                    ]}
+                  >
+                    <List.Item.Meta
+                      className="list-item"
+                      title={item.title}
+                      description={item.summary}
+                      onClick={() => this.props.history.push(`/app/blog/desc/${item.id}`)}
+                    />
+                  </List.Item>
+                )
+              }}
             />
           </Col>
           <Col
@@ -138,7 +141,7 @@ class BlogList extends Component {
           </Col>
 
         </Row>
-        <Row style={{marginTop: 20}}>
+        <Row style={{ marginTop: 20 }}>
           <Col
             lg={{ span: 0 }}
             md={{ span: 0 }}

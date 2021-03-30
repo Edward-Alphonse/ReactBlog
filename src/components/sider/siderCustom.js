@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import avatar from '../../assets/avatar.jpg'
-import axios from 'axios'
+// import axios from 'axios'
 import {
   Card,
   Tag
 } from 'antd'
 import './sider.css'
 import { color } from '../../utils/utils'
+import { Network, Api } from '../../config/http'
 @withRouter
 @connect(
   state => state.blog,
@@ -26,16 +27,15 @@ class SiderCustom extends Component {
     this.getTags()
   }
   getTags() {
-    axios.get('/api/tags')
-      .then(res => {
-        if (res.status === 200 && res.data.code === 0) {
-          this.setState({
-            tags: res.data.tags
-          })
-        }
-      })
+    Network.get(Api.tags.url()).then(res => {
+      if (res.status === 0) {
+        this.setState({
+          tags: res.data.tags
+        })
+      }
+    })
       .catch(err => {
-        throw(err)
+        throw (err)
       })
   }
   render() {
@@ -43,7 +43,7 @@ class SiderCustom extends Component {
       <div className="sider-container">
         <div className="admin-info">
           <header>
-            <img src={avatar} alt="avatar"/>
+            <img src={avatar} alt="avatar" />
           </header>
           <p className="admin-name">
             Water
@@ -57,14 +57,16 @@ class SiderCustom extends Component {
             {
               this.props.content ? <ul className="recent-list">
                 {
-                  this.props.content.map(v => (
+                  this.props.content.map(v => {
+                    return (
                       <li key={v.id} onClick={() => this.props.history.push(`/app/blog/desc/${v.id}`)}>
                         {v.title}
                       </li>
-                  ))
+                    )
+                  })
                 }
               </ul>
-              : null
+                : null
             }
           </Card>
         </div>
@@ -75,14 +77,14 @@ class SiderCustom extends Component {
                 this.state.tags ?
                   this.state.tags.map(v => (
                     <Tag
-                      key = {v}
-                      color={color[Math.floor(Math.random()*color.length)]}
-                      onClick={()=>this.props.history.push(`/app/tags/${v}`)}
+                      key={v}
+                      color={color[Math.floor(Math.random() * color.length)]}
+                      onClick={() => this.props.history.push(`/app/tags/${v}`)}
                     >
                       {v}
                     </Tag>
                   ))
-                : null
+                  : null
               }
             </div>
           </Card>
