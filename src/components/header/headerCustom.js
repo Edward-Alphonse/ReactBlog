@@ -90,30 +90,13 @@ class HeaderCustom extends Component {
     return (
       <Header className="header-container">
         <Row>
-          <Col
-            lg={{ span: 4 }}
-            md={{ span: 4 }}
-            xs={{ span: 0 }}
-          >
-            <div className="logo">
-            </div>
+          <Col lg={{ span: 4 }} md={{ span: 4 }} xs={{ span: 0 }}>
+            <div className="logo" />
           </Col>
-          <Col
-            lg={{ span: 14 }}
-            md={{ span: 14 }}
-            xs={{ span: 0 }}
-          >
-            <Navigate
-              menus={menus}
-              mode="horizontal"
-            />
+          <Col lg={{ span: 14 }} md={{ span: 14 }} xs={{ span: 0 }}>
+            <Navigate menus={menus} mode="horizontal" />
           </Col>
-          <Col
-            lg={{ span: 0 }}
-            md={{ span: 0 }}
-            xs={{ span: 10 }}
-            className="drop-down"
-          >
+          <Col lg={{ span: 0 }} md={{ span: 0 }} xs={{ span: 10 }} className="drop-down">
             <Dropdown overlay={navigator} trigger={['click']}>
               <div>
                 <Button type="primary" ghost style={{ border: 'none' }}>
@@ -122,15 +105,8 @@ class HeaderCustom extends Component {
               </div>
             </Dropdown>
           </Col>
-          <Col
-            lg={{ span: 6 }}
-            md={{ span: 6 }}
-            xs={{ span: 14 }}
-          >
-            <div
-              className="nav-auth"
-              style={{ display: Cookies.get("token") ? 'none' : 'block' }}
-            >
+          <Col lg={{ span: 6 }} md={{ span: 6 }} xs={{ span: 14 }}>
+            <div className="nav-auth" style={{ display: Cookies.get("token") ? 'none' : 'block' }}>
               <Button
                 ghost
                 type="primary"
