@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router';
 import {
   Layout,
   Row,
@@ -28,6 +29,7 @@ class HeaderCustom extends Component {
     this.state = {
       login: false,
       register: false,
+      post: false,
       nav: '首页'
     }
     this.menuClick = this.menuClick.bind(this)
@@ -35,6 +37,7 @@ class HeaderCustom extends Component {
     this.showRegisterModal = this.showRegisterModal.bind(this)
     this.handleLoginCancel = this.handleLoginCancel.bind(this)
     this.handleRegisterCancel = this.handleRegisterCancel.bind(this)
+    this.showEditor = this.showEditor.bind(this);
   }
   showLoginModal() {
     this.setState({
@@ -60,7 +63,11 @@ class HeaderCustom extends Component {
     this.setState({
       nav: key
     })
-
+  }
+  showEditor() {
+    this.setState({
+      post: true
+    })
   }
   render() {
     const menu = (
@@ -87,16 +94,36 @@ class HeaderCustom extends Component {
         style={{ width: 90, borderRadius: '5%' }}
       />
     )
+    if (this.state.post) {
+      return <Redirect to="/post" />
+    }
     return (
       <Header className="header-container">
         <Row>
-          <Col lg={{ span: 4 }} md={{ span: 4 }} xs={{ span: 0 }}>
-            <div className="logo" />
+          <Col
+            lg={{ span: 4 }}
+            md={{ span: 4 }}
+            xs={{ span: 0 }}
+          >
+            <div className="logo">
+            </div>
           </Col>
-          <Col lg={{ span: 14 }} md={{ span: 14 }} xs={{ span: 0 }}>
-            <Navigate menus={menus} mode="horizontal" />
+          <Col
+            lg={{ span: 14 }}
+            md={{ span: 14 }}
+            xs={{ span: 0 }}
+          >
+            <Navigate
+              menus={menus}
+              mode="horizontal"
+            />
           </Col>
-          <Col lg={{ span: 0 }} md={{ span: 0 }} xs={{ span: 10 }} className="drop-down">
+          <Col
+            lg={{ span: 0 }}
+            md={{ span: 0 }}
+            xs={{ span: 10 }}
+            className="drop-down"
+          >
             <Dropdown overlay={navigator} trigger={['click']}>
               <div>
                 <Button type="primary" ghost style={{ border: 'none' }}>
@@ -105,25 +132,16 @@ class HeaderCustom extends Component {
               </div>
             </Dropdown>
           </Col>
-          <Col lg={{ span: 6 }} md={{ span: 6 }} xs={{ span: 14 }}>
-            <div className="nav-auth" style={{ display: Cookies.get("token") ? 'none' : 'block' }}>
-              <Button
-                ghost
-                type="primary"
-                size="small"
-                style={{ marginRight: 20 }}
-                onClick={this.showLoginModal}
-              >
-                登录
-              </Button>
-              <Button
-                ghost
-                type="danger"
-                size="small"
-                onClick={this.showRegisterModal}
-              >
-                注册
-              </Button>
+          <Col
+            lg={{ span: 6 }}
+            md={{ span: 6 }}
+            xs={{ span: 14 }}
+          >
+            <div
+              className="nav-auth"
+              style={{ display: Cookies.get("token") ? 'none' : 'block' }}
+            >
+              {this.getButtons()}
             </div>
 
             <div
@@ -156,6 +174,46 @@ class HeaderCustom extends Component {
         />
       </Header>
     )
+  }
+  getButtons() {
+    var buttons = []
+    buttons.push(
+      <Button
+        ghost
+        key="456"
+        type="primary"
+        size="small"
+        style={{ marginRight: 20 }}
+        onClick={this.showLoginModal}
+      >
+        登录
+      </Button>
+    )
+    buttons.push(
+      <Button
+        ghost
+        key="1234"
+        type="danger"
+        size="small"
+        style={{ marginRight: 20 }}
+        onClick={this.showRegisterModal}
+      >
+        注册
+      </Button>
+    )
+    buttons.push(
+      <Button
+        key="123"
+        ghost
+        type="primary"
+        size="small"
+        style={{ marginRight: 20 }}
+        onClick={this.showEditor}
+      >
+        发文
+    </Button>
+    )
+    return buttons
   }
 }
 
